@@ -1,16 +1,17 @@
+/**
+ *
+ * @author Gerardo
+ * Hoja 2
+ * Majo Castro 181202
+ * Gerardo Mendez 18239
+ * 1/02/2019
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Gerardo
- * Hoja 2
- * Majo Castro 1981202
- * Gerardo Mendez 18239
- * 1/02/2019
- */
 public class Stack 
 {
 
@@ -34,49 +35,69 @@ public class Stack
             array.add(data);
         }
         
-        for(int i = 0; i < array.size(); i++){
-            System.out.println(array.get(i));
-        }
-        
         for(int i = 0; i < array.size(); i++)
         {
             pila.push(array.get(array.size()-i-1));
         }
-       
-        while(!pila.empty())
+        
+        try
         {
-            double a, b;
-            double c = 0;
-            String d, e;
-            a = Double.parseDouble(pila.pop());
-            b = Double.parseDouble(pila.pop());
-            d = pila.pop();
-            
-            if(d.equals("+"))
+            while(!pila.empty())
             {
-               c = calculadora.sumar(a, b);
-            }
+                double a, b;
+                double c = 0;
+                String d, e;
+                a = Double.parseDouble(pila.pop());
+                b = Double.parseDouble(pila.pop());
+                d = pila.pop();
+                
+                if(d.equals("+"))
+                {
+                    c = calculadora.sumar(a, b);
+                }
             
-            if(d.equals("-"))
-            {
-               c = calculadora.restar(a, b);
-            }
+                if(d.equals("-"))
+                {
+                    c = calculadora.restar(a, b);
+                }
+                
+                if(d.equals("*"))
+                {
+                    c = calculadora.multiplicar(a, b);
+                }
+                
+                if(d.equals("/"))
+                {
+                    c = calculadora.dividir(a, b);
+                }
             
-            if(d.equals("*"))
-            {
-               c = calculadora.multiplicar(a, b);
-            }
+                e = String.valueOf(c);
             
-            if(d.equals("/"))
-            {
-               c = calculadora.dividir(a, b);
+                if(pila.size() > 0)
+                {
+                    pila.push(e);
+                }
+                
+                if(pila.size() == 0)
+                {
+                    System.out.println("");
+                    System.out.println("El resultado final de las operaciones del archivo de texto es: " + e);
+                    System.out.println("");
+                }
             }
-            
-            e = String.valueOf(c);
-            
-            if(pila.size() > 0){
-                pila.push(e);
-            }
+        }
+        catch(NumberFormatException e){
+            System.out.println("");
+            System.out.println("Hay dos simbolos o dos numeros juntos en el archivo de texto ingresado");
+            System.out.println("Por favor corregir para que el programa pueda realizar los calculos deseados");
+            System.out.println("");
+            //System.out.println("El archivo de texto que se utilizo no cumple con las condiciones");
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("");
+            System.out.println("El archivo de texto utilizado para el programa no termina en un simbolo de operacion");
+            System.out.println("Por favor corregir para que el programa pueda realizar los calculos deseados");
+            System.out.println("");
         }
     }
 }
